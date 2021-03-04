@@ -1,5 +1,5 @@
 import requests
-import time
+import os
 from bs4 import BeautifulSoup
 
 
@@ -21,15 +21,24 @@ def getHTMLText(url):
         return'产生异常'
 
 def main():
-    print (time.strftime("%Y-%m-%d  %H:%M:%S",time.localtime()))
     '''
 	主函数
 	'''
     #目标网页
-    url='https://cn.bing.com/';
+    url='https://cn.bing.com/'
+    workpath='~/Bing'
+    picpath=workpath+'/picture'
+
+
+    #工作环境准备
+    if not os.path.exists(workpath):
+        os.mkdir(workpath)
+
+    if not os.path.exists(picpath):
+        os.mkdir(picpath)
     
     demo=getHTMLText(url)
-    #print("执行中...")
+    print("执行中...")
     #解析HTML代码
     soup=BeautifulSoup(demo,'html.parser')
 	#得到图片网址
@@ -39,11 +48,11 @@ def main():
     #将名字中的/替换
     name=name.replace('/','_',5)
 	
-    name='/home/j/Bing/picture/'+name+'.jpg'
+    name=picpath+'/'+name+'.jpg'
     r=requests.get(pic)
     with open(name,'wb')as f:
         f.write(r.content)
-    print(name+"    完成!\n\n")
+    print("完成!")
 
 main()
 	
