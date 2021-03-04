@@ -1,5 +1,5 @@
 import requests
-import os
+import os,getpass
 from bs4 import BeautifulSoup
 
 
@@ -26,11 +26,17 @@ def main():
 	'''
     #目标网页
     url='https://cn.bing.com/'
-    workpath='~/Bing'
-    picpath=workpath+'/picture'
 
 
     #工作环境准备
+    username=getpass.getuser()
+    workpath=''
+    if username=='root':
+        workpath='/root/Bing'
+    else:
+        workpath='/home/'+username+'/Bing'
+    picpath=workpath+'/picture'
+
     if not os.path.exists(workpath):
         os.mkdir(workpath)
 
