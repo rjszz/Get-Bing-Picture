@@ -60,5 +60,6 @@ def main():
         f.write(r.content)
     print("完成!")
 
-main()
+if __name__ == '__main__':
+    main()
 	
