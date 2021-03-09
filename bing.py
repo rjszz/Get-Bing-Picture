@@ -1,6 +1,7 @@
 import requests
 import os,getpass
 from bs4 import BeautifulSoup
+import time
 
 
 
@@ -19,6 +20,10 @@ def getHTMLText(url):
         return res.text
     except:
         return'产生异常'
+
+def getCurTime():
+    curTime=time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    return curTime
 
 def main():
     '''
@@ -44,6 +49,7 @@ def main():
         os.mkdir(picpath)
     
     demo=getHTMLText(url)
+    print(getCurTime())
     print("执行中...")
     #解析HTML代码
     soup=BeautifulSoup(demo,'html.parser')
@@ -58,7 +64,8 @@ def main():
     r=requests.get(pic)
     with open(name,'wb')as f:
         f.write(r.content)
-    print("完成!")
+    print("完成!","\n\n\n")
+
 
 if __name__ == '__main__':
     main()
